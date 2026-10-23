@@ -1,411 +1,154 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Sparkles, Bot, Rocket, ShieldAlert, TrendingUp, Cpu, Flame, 
-  Terminal, Zap, DollarSign, Award, RefreshCw, Layers, Radio, 
-  ChevronRight, Play, CheckCircle2, Globe, MessageSquare, Plus, Activity
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$MARGIN | Margin Call Mac - The Autonomous AI Degen Broker</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for retro/terminal vibe -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #f3f4f6;
+        }
+        .font-mono-custom {
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .glow-box {
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-green-500 selection:text-black">
 
-export default function App() {
-  const [activeTab, setActiveTab] = useState('studio');
-  const [agents, setAgents] = useState([
-    { id: 1, name: 'Billionaire Bunny', role: 'Chief Meme Officer', status: 'Active', mood: 'Greedy', action: 'Analyzing Twitter sentiment for $PILL', pnl: '+412%', color: 'from-pink-500 to-rose-500', avatar: '🐰' },
-    { id: 2, name: 'Satoshi Sloth', role: 'Risk & Liquidity AI', status: 'Active', mood: 'Cautious', action: 'Rebalancing Raydium liquidity pool', pnl: '+88%', color: 'from-amber-400 to-orange-500', avatar: '🦥' },
-    { id: 3, name: 'Cyber Cat', role: 'Smart Contract Auditor', status: 'Hunting', mood: 'Paranoid', action: 'Scanning 45 new Solana token mints for rugs', pnl: '+320%', color: 'from-cyan-400 to-blue-600', avatar: '🐱' },
-    { id: 4, name: 'Degen Doge', role: 'Autonomous Sniper', status: 'Active', mood: 'Euphoric', action: 'Executing sniper entry on new Pump.fun token', pnl: '+1,450%', color: 'from-emerald-400 to-green-600', avatar: '🐶' }
-  ]);
-  
-  const [tokens, setTokens] = useState([
-    { name: 'Quantum Banana', ticker: '$QBANANA', mcap: '$4.2M', change: '+245%', creator: 'Billionaire Bunny', status: 'Bonding Curve 98%', holders: 3410 },
-    { name: 'Laser Laser Eyes', ticker: '$LASER', mcap: '$1.8M', change: '+89%', creator: 'Cyber Cat', status: 'Raydium Live', holders: 1890 },
-    { name: 'Paperhands Tears', ticker: '$TEARS', mcap: '$850K', change: '+34%', creator: 'Satoshi Sloth', status: 'Bonding Curve 45%', holders: 920 },
-    { name: 'Infinite Ink', ticker: '$INK', mcap: '$12.4M', change: '+512%', creator: 'Degen Doge', status: 'Raydium Live', holders: 8400 }
-  ]);
-
-  const [logs, setLogs] = useState([
-    { time: '12:04:12', agent: 'Billionaire Bunny', text: 'Tweeted viral thread on AI memetic takeovers. Engagement +4,200%.' },
-    { time: '12:04:01', agent: 'Cyber Cat', text: 'Scanned 14 smart contracts. Flagged 3 honeypots. Saved treasury $45,000.' },
-    { time: '12:03:45', agent: 'Degen Doge', text: 'Snipped $QBANANA early liquidity. Unrealized profit: +34 SOL.' },
-    { time: '12:03:20', agent: 'Satoshi Sloth', text: 'Harvested 12.4 SOL yield and deposited into buyback & burn contract.' }
-  ]);
-
-  const [treasuryBalance, setTreasuryBalance] = useState('1428500');
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [newPrompt, setNewPrompt] = useState('');
-  const [launchSuccess, setLaunchSuccess] = useState(false);
-
-  // Simulate live autonomous actions safely
-  useEffect(() => {
-    const interval = setInterval(() => {
-      try {
-        const actionsList = [
-          'Sniper Bot detected bullish volume surge on Raydium.',
-          'AI Agent autonomously tweeting viral meme art.',
-          'Liquidity pool depth optimized for zero slippage.',
-          'Smart contract security audit completed with 100% score.',
-          'Treasury automated buyback executed: 14.5 SOL burned.'
-        ];
-        const randomAction = actionsList[Math.floor(Math.random() * actionsList.length)];
-        const now = new Date().toLocaleTimeString();
-        const randomAgent = agents[Math.floor(Math.random() * agents.length)] || agents[0];
-
-        setLogs(prev => [{ time: now, agent: randomAgent.name, text: randomAction }, ...prev.slice(0, 15)]);
-        
-        setTreasuryBalance(prev => {
-          const cleanNum = parseFloat(String(prev).replace(/,/g, '')) || 1428500;
-          const nextVal = cleanNum + (Math.random() * 200 - 80);
-          return Math.round(nextVal).toString();
-        });
-      } catch (e) {
-        console.error("Interval update error:", e);
-      }
-    }, 4500);
-
-    return () => clearInterval(interval);
-  }, [agents]);
-
-  const handleLaunchAgenticToken = (e) => {
-    e.preventDefault();
-    if (!newPrompt || !newPrompt.trim()) return;
-    setIsGenerating(true);
-
-    setTimeout(() => {
-      setIsGenerating(false);
-      setLaunchSuccess(true);
-      const tickers = ['$TOON', '$ZEST', '$POP', '$MOON', '$BLAST', '$INKY'];
-      const randomTicker = tickers[Math.floor(Math.random() * tickers.length)];
-      
-      setTokens(prev => [
-        {
-          name: newPrompt,
-          ticker: randomTicker,
-          mcap: '$45K',
-          change: '+0%',
-          creator: 'Autonomous AI Swarm',
-          status: 'Bonding Curve 5%',
-          holders: 12
-        },
-        ...prev
-      ]);
-      setNewPrompt('');
-      setTimeout(() => setLaunchSuccess(false), 4000);
-    }, 2000);
-  };
-
-  const formattedTreasury = (() => {
-    try {
-      const num = parseFloat(String(treasuryBalance).replace(/,/g, '')) || 1428500;
-      return num.toLocaleString('en-US', { maximumFractionDigits: 0 });
-    } catch {
-      return '1,428,500';
-    }
-  })();
-
-  return (
-    <div className="min-h-screen bg-[#FFFDF5] text-gray-900 font-sans selection:bg-yellow-300 selection:text-black pb-20">
-      <div className="w-full bg-black h-3 border-b-4 border-black"></div>
-      
-      {/* Top Banner / Ticker */}
-      <div className="bg-yellow-400 border-b-4 border-black py-2 px-4 overflow-hidden whitespace-nowrap">
-        <div className="font-black uppercase tracking-widest text-sm flex space-x-12">
-          <span>⚡ 100% ZERO HUMAN INTERVENTION AGENTIC PROTOCOL ⚡</span>
-          <span>🚀 AUTONOMOUS MEMECOIN LAUNCHPAD 🚀</span>
-          <span>💰 REAL-TIME ON-CHAIN TREASURY REVENUE SHARING 💰</span>
-        </div>
-      </div>
-
-      {/* Navigation Header */}
-      <header className="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4 border-b-4 border-black bg-white rounded-b-3xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] mx-4 my-2">
-        <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-yellow-400 rounded-2xl border-4 border-black flex items-center justify-center text-3xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transform -rotate-6">
-            💥
-          </div>
-          <div>
-            <h1 className="text-3xl font-black uppercase tracking-tight flex items-center gap-2">
-              TOON<span className="bg-black text-yellow-400 px-2 rounded-lg transform rotate-2 inline-block">FUND</span>
-            </h1>
-            <p className="text-xs font-bold text-gray-600 uppercase tracking-widest">Autonomous Agentic Cartoon Capital</p>
-          </div>
-        </div>
-
-        {/* Navigation Tabs */}
-        <div className="flex flex-wrap items-center gap-2 bg-gray-100 p-2 rounded-2xl border-4 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
-          <button 
-            onClick={() => setActiveTab('studio')}
-            className={`px-4 py-2 font-black uppercase text-sm rounded-xl border-2 border-black transition-all ${activeTab === 'studio' ? 'bg-yellow-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] translate-y-[-2px]' : 'bg-white hover:bg-yellow-100'}`}
-          >
-            🎬 AI Studio
-          </button>
-          <button 
-            onClick={() => setActiveTab('agents')}
-            className={`px-4 py-2 font-black uppercase text-sm rounded-xl border-2 border-black transition-all ${activeTab === 'agents' ? 'bg-yellow-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] translate-y-[-2px]' : 'bg-white hover:bg-yellow-100'}`}
-          >
-            🤖 AI Swarm ({agents.length})
-          </button>
-          <button 
-            onClick={() => setActiveTab('market')}
-            className={`px-4 py-2 font-black uppercase text-sm rounded-xl border-2 border-black transition-all ${activeTab === 'market' ? 'bg-yellow-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] translate-y-[-2px]' : 'bg-white hover:bg-yellow-100'}`}
-          >
-            📈 Meme DEX
-          </button>
-          <button 
-            onClick={() => setActiveTab('terminal')}
-            className={`px-4 py-2 font-black uppercase text-sm rounded-xl border-2 border-black transition-all ${activeTab === 'terminal' ? 'bg-yellow-400 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] translate-y-[-2px]' : 'bg-white hover:bg-yellow-100'}`}
-          >
-            ⚡ Live Terminal
-          </button>
-        </div>
-
-        {/* Wallet Connect Button */}
-        <div className="flex items-center gap-3">
-          <div className="hidden lg:block text-right">
-            <p className="text-xs font-black text-gray-500 uppercase">Autonomous Treasury</p>
-            <p className="text-lg font-black text-emerald-600">${formattedTreasury} USD</p>
-          </div>
-          <button className="bg-emerald-400 hover:bg-emerald-500 text-black font-black uppercase px-5 py-3 rounded-2xl border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center gap-2 cursor-pointer">
-            <Zap className="w-5 h-5 fill-black" />
-            Connect Agent
-          </button>
-        </div>
-      </header>
-
-      {/* Main Content Container */}
-      <main className="max-w-7xl mx-auto px-4 mt-8">
-        
-        {/* TAB 1: AI STUDIO / LAUNCHPAD */}
-        {activeTab === 'studio' && (
-          <div className="space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7 bg-white p-8 md:p-12 rounded-3xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden">
-                <div className="absolute top-4 right-4 bg-yellow-300 text-black font-black px-4 py-1 rounded-xl border-2 border-black transform rotate-6 text-sm">
-                  🔥 ZERO HUMAN OVERHEAD
+    <!-- Top Navigation -->
+    <header class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center font-black text-black text-xl glow-text">
+                    $M
                 </div>
-                <span className="bg-black text-white px-3 py-1 font-black text-xs uppercase rounded-lg">Next-Gen Autonomous VC</span>
-                <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight mt-4 leading-none">
-                  Launch Memecoins with <span className="text-yellow-500 underline decoration-black decoration-4">Autonomous AI Agents</span>
-                </h2>
-                <p className="mt-4 text-lg font-medium text-gray-700">
-                  Type any concept. Our decentralized swarm of AI cartoon agents will instantly generate the lore, deploy the smart contract on Solana, manage liquidity, market on Twitter, and list on DEX—requiring <span className="font-black bg-yellow-200 px-1">0 human effort & $0 operational cost</span>.
+                <div>
+                    <h1 class="font-black tracking-wider text-lg">MARGIN CALL MAC</h1>
+                    <p class="text-xs text-green-400 font-mono-custom">AI AGENT: ACTIVE [SOLANA]</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="https://pump.fun" target="_blank" class="hidden sm:inline-block text-xs font-mono-custom bg-zinc-900 border border-zinc-700 px-3 py-2 rounded hover:border-green-500 transition">
+                    CA: <span class="text-zinc-400">Coming Live on Pump.fun</span>
+                </a>
+                <button id="connectWallet" class="bg-green-500 hover:bg-green-400 text-black font-black px-5 py-2 rounded text-sm transition transform hover:scale-105">
+                    CONNECT WALLET
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Hero Section -->
+    <main class="max-w-6xl mx-auto px-4 py-12 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left Column: Agent Lore & Live Status -->
+        <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center space-x-2 bg-green-500/10 border border-green-500/30 px-3 py-1 rounded-full text-green-400 text-xs font-mono-custom">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
+                <span>Autonomous Agent Feed Live 24/7</span>
+            </div>
+            
+            <h2 class="text-4xl sm:text-6xl font-black tracking-tight uppercase leading-none">
+                The First <span class="text-green-500 glow-text">Autonomous AI</span> Degen Broker.
+            </h2>
+            
+            <p class="text-zinc-400 text-lg">
+                Mac lives on the Solana blockchain. He reads your charts, screams at the liquidity pools, and auto-generates his own sitcom episodes based entirely on market swings. Zero human control. Pure algorithm chaos.
+            </p>
+
+            <!-- Live AI Thought Bubble Box -->
+            <div class="bg-zinc-900/90 rounded-xl p-5 glow-box font-mono-custom space-y-3">
+                <div class="flex justify-between items-center text-xs text-zinc-500 border-b border-zinc-800 pb-2">
+                    <span>STATUS: MONITORING SOLANA MEMEPOOL</span>
+                    <span id="timestamp" class="text-green-400">SYNCED</span>
+                </div>
+                <p id="aiThought" class="text-green-400 text-sm sm:text-base">
+                    "Checking the 1-hour candles... Why is everyone selling? Who touched my leverage?! Adjusting necktie... locking in."
                 </p>
-
-                {/* AI Token Creator Box */}
-                <form onSubmit={handleLaunchAgenticToken} className="mt-8">
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <input 
-                      type="text" 
-                      value={newPrompt}
-                      onChange={(e) => setNewPrompt(e.target.value)}
-                      placeholder="e.g., Cyberpunk Duck with infinite coffee..."
-                      className="flex-1 bg-gray-50 border-4 border-black px-5 py-4 rounded-2xl font-bold text-lg focus:outline-none focus:bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-                    />
-                    <button 
-                      type="submit"
-                      disabled={isGenerating}
-                      className="bg-yellow-400 hover:bg-yellow-500 text-black font-black uppercase px-8 py-4 rounded-2xl border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                    >
-                      {isGenerating ? (
-                        <>
-                          <RefreshCw className="w-6 h-6 animate-spin" />
-                          Agents Working...
-                        </>
-                      ) : (
-                        <>
-                          <Sparkles className="w-6 h-6 fill-black" />
-                          Deploy Agentic Token
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </form>
-
-                {launchSuccess && (
-                  <div className="mt-4 bg-emerald-300 border-4 border-black p-4 rounded-2xl font-black text-center flex items-center justify-center gap-2">
-                    <CheckCircle2 className="w-6 h-6" />
-                    Successfully deployed by Agentic Swarm! Bonding curve live on DEX.
-                  </div>
-                )}
-
-                <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t-4 border-dashed border-black">
-                  <div>
-                    <p className="text-xs font-black uppercase text-gray-500">Autonomous Launch Fee</p>
-                    <p className="text-2xl font-black text-emerald-600">$0.00 <span className="text-xs text-black font-bold">(Free)</span></p>
-                  </div>
-                  <div>
-                    <p className="text-xs font-black uppercase text-gray-500">Active Agent Swarm</p>
-                    <p className="text-2xl font-black">4 Specialized AIs</p>
-                  </div>
-                  <div>
-                    <p className="text-xs font-black uppercase text-gray-500">Total Volume Generated</p>
-                    <p className="text-2xl font-black">$48.2M+</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Side: Spotlight */}
-              <div className="lg:col-span-5 space-y-6">
-                <div className="bg-yellow-300 p-6 rounded-3xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="bg-black text-yellow-300 px-3 py-1 font-black text-xs uppercase rounded-lg">AI Spotlight</span>
-                    <div className="flex items-center gap-1 bg-white px-3 py-1 rounded-xl border-2 border-black font-black text-xs">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                      ONLINE 24/7
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-20 h-20 bg-white rounded-2xl border-4 border-black flex items-center justify-center text-4xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-3">
-                      🐰
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-black uppercase">Billionaire Bunny</h3>
-                      <p className="text-sm font-bold text-gray-800">Chief Meme Officer</p>
-                      <span className="inline-block bg-black text-white text-xs font-black px-2 py-0.5 rounded mt-1">PnL: +412%</span>
-                    </div>
-                  </div>
-                  <p className="mt-4 font-bold bg-white p-4 rounded-xl border-3 border-black text-sm shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
-                    "Autogenerating 150 viral cartoon memes per hour based on real-time Solana order-book sentiment."
-                  </p>
-                </div>
-
-                <div className="bg-purple-300 p-6 rounded-3xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-                  <h3 className="text-xl font-black uppercase flex items-center gap-2">
-                    <ShieldAlert className="w-6 h-6" />
-                    Institutional Grade Security
-                  </h3>
-                  <p className="text-sm font-bold mt-2 text-gray-900">
-                    Smart contracts are autonomously audited and liquidity locked instantly upon curve completion.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* TAB 2: AGENT SWARM */}
-        {activeTab === 'agents' && (
-          <div className="space-y-6">
-            <div className="bg-white p-8 rounded-3xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col md:flex-row items-center justify-between gap-4">
-              <div>
-                <span className="bg-yellow-400 text-black px-3 py-1 font-black text-xs uppercase rounded-lg border-2 border-black">Autonomous Workforce</span>
-                <h2 className="text-3xl font-black uppercase mt-2">The Cartoon Agentic Swarm</h2>
-                <p className="text-gray-600 font-medium">These AI agents collaborate 24/7 with zero overhead.</p>
-              </div>
-              <div className="bg-black text-yellow-400 px-6 py-3 rounded-2xl font-black uppercase border-4 border-black text-center shadow-[4px_4px_0px_0px_rgba(255,255,0,1)]">
-                Status: 100% Autonomous
-              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {agents.map((agent) => (
-                <div key={agent.id} className="bg-white rounded-3xl border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between">
-                  <div>
-                    <div className="flex justify-between items-start">
-                      <div className={`w-16 h-16 bg-gradient-to-br ${agent.color} rounded-2xl border-4 border-black flex items-center justify-center text-3xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]`}>
-                        {agent.avatar}
-                      </div>
-                      <span className="bg-emerald-300 text-black font-black text-xs px-2 py-1 rounded-lg border-2 border-black">
-                        {agent.status}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-black uppercase mt-4">{agent.name}</h3>
-                    <p className="text-xs font-bold text-gray-500 uppercase">{agent.role}</p>
-                    
-                    <div className="mt-4 bg-gray-50 p-3 rounded-xl border-2 border-black">
-                      <p className="text-xs font-bold text-gray-500 uppercase">Current Mood: <span className="text-black">{agent.mood}</span></p>
-                      <p className="text-sm font-black mt-1 text-blue-600">{agent.action}</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-4 border-t-2 border-dashed border-black flex items-center justify-between">
-                    <span className="font-bold text-sm">Autonomous PnL</span>
-                    <span className="bg-yellow-300 px-3 py-1 rounded-xl border-2 border-black font-black text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">{agent.pnl}</span>
-                  </div>
-                </div>
-              ))}
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-4 pt-2">
+                <a href="https://pump.fun" target="_blank" class="bg-green-500 hover:bg-green-400 text-black font-black px-8 py-3 rounded-lg transition text-center shadow-lg shadow-green-500/20">
+                    BUY $MARGIN NOW
+                </a>
+                <a href="https://x.com" target="_blank" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white font-bold px-6 py-3 rounded-lg transition text-center">
+                    VIEW X (TWITTER) FEED
+                </a>
             </div>
-          </div>
-        )}
+        </div>
 
-        {/* TAB 3: MARKET */}
-        {activeTab === 'market' && (
-          <div className="space-y-6">
-            <div className="bg-white p-8 rounded-3xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col md:flex-row items-center justify-between gap-4">
-              <div>
-                <span className="bg-pink-400 text-black px-3 py-1 font-black text-xs uppercase rounded-lg border-2 border-black">Live Markets</span>
-                <h2 className="text-3xl font-black uppercase mt-2">Agentic Meme Exchange</h2>
-                <p className="text-gray-600 font-medium">Explore top-performing autonomous cartoon memecoins generated by the AI swarm.</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {tokens.map((token, idx) => (
-                <div key={idx} className="bg-white p-6 rounded-3xl border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-yellow-300 rounded-2xl border-4 border-black flex items-center justify-center font-black text-2xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
-                      {token.ticker ? token.ticker.substring(1, 3) : '⚡'}
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-black text-xl uppercase">{token.name}</h4>
-                        <span className="bg-black text-yellow-400 font-black text-xs px-2 py-0.5 rounded">{token.ticker}</span>
-                      </div>
-                      <p className="text-xs font-bold text-gray-500 mt-0.5">Created by <span className="text-black">{token.creator}</span> • {token.holders} Holders</p>
-                      <span className="inline-block mt-2 bg-emerald-100 text-emerald-800 border border-emerald-400 font-black text-xs px-2 py-0.5 rounded-full">
-                        {token.status}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="text-right">
-                    <p className="text-2xl font-black">{token.mcap}</p>
-                    <p className="text-emerald-600 font-black text-sm bg-emerald-100 px-2 py-0.5 rounded-lg border border-emerald-400 inline-block mt-1">
-                      {token.change}
+        <!-- Right Column: Visual Character Asset Mockup -->
+        <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-full max-w-md aspect-square bg-zinc-900 rounded-2xl border-2 border-zinc-800 p-4 flex flex-col items-center justify-center overflow-hidden group glow-box">
+                <!-- Background ambient glow -->
+                <div class="absolute inset-0 bg-gradient-to-t from-green-500/10 via-transparent to-transparent pointer-events-none"></div>
+                
+                <!-- Character Placeholder Card (Drop your AI generated image here) -->
+                <div class="w-full h-full rounded-xl border border-dashed border-zinc-700 flex flex-col items-center justify-center text-center p-6 bg-zinc-950">
+                    <div class="text-6xl mb-4">📈👔</div>
+                    <h3 class="font-black text-xl text-white tracking-wide">MARGIN CALL MAC</h3>
+                    <p class="text-xs text-zinc-500 mt-2 font-mono-custom">
+                        [Insert your AI-generated 90s vintage cartoon broker image here]
                     </p>
-                  </div>
                 </div>
-              ))}
             </div>
-          </div>
-        )}
+        </div>
 
-        {/* TAB 4: TERMINAL */}
-        {activeTab === 'terminal' && (
-          <div className="space-y-6">
-            <div className="bg-black text-green-400 p-8 rounded-3xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(255,255,0,1)] font-mono">
-              <div className="flex items-center justify-between pb-6 border-b-2 border-green-800">
-                <div className="flex items-center gap-3">
-                  <Terminal className="w-8 h-8 text-yellow-400" />
-                  <div>
-                    <h3 className="text-2xl font-black text-yellow-400 uppercase tracking-widest">AGENTIC CORE STREAM v4.2</h3>
-                    <p className="text-xs text-green-500">Autonomous Execution Log • Zero Human Intervention</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-green-500"></span>
-                  <span className="text-xs font-bold uppercase text-green-400">Live Feed Active</span>
-                </div>
-              </div>
+    </main>
 
-              <div className="mt-6 space-y-4 max-h-[500px] overflow-y-auto pr-2">
-                {logs.map((log, index) => (
-                  <div key={index} className="bg-gray-900 border-2 border-green-800/60 p-4 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div className="flex items-center gap-3">
-                      <span className="text-yellow-400 text-xs font-bold">[{log.time}]</span>
-                      <span className="bg-yellow-400 text-black text-xs font-black px-2 py-0.5 rounded uppercase">{log.agent}</span>
-                      <span className="text-gray-200 text-sm font-medium">{log.text}</span>
-                    </div>
-                    <span className="text-xs font-bold text-emerald-400 bg-emerald-950 px-2 py-1 rounded border border-emerald-800">SUCCESS</span>
-                  </div>
-                ))}
-              </div>
+    <!-- Footer Stats / Ticker info -->
+    <footer class="border-t border-zinc-800 bg-zinc-950 py-6 text-center text-xs text-zinc-500 font-mono-custom">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 Margin Call Mac ($MARGIN). Powered by Autonomous Solana Agents.</p>
+            <div class="flex space-x-6">
+                <span class="hover:text-green-400 cursor-pointer">Contract: Renounced</span>
+                <span class="hover:text-green-400 cursor-pointer">LP: Burned</span>
+                <span class="hover:text-green-400 cursor-pointer">Tax: 0/0</span>
             </div>
-          </div>
-        )}
-      </main>
+        </div>
+    </footer>
 
-      <footer className="max-w-7xl mx-auto px-4 mt-20 text-center border-t-4 border-black pt-8">
-        <p className="font-black uppercase text-sm">
-          TOONFUND © 2026 • 100% AGENTIC • ZERO COST • MILLION DOLLAR TOON CAPITAL
-        </p>
-      </footer>
-    </div>
-  );
-}
+    <!-- Simple JS to simulate dynamic agent updates & wallet click -->
+    <script>
+        // Simulate live changing AI commentary to give the "alive" illusion
+        const thoughts = [
+            "\"Analyzing volume spike... Mac is firing up the printing press. Green candles incoming!\"",
+            "\"Paper hands detected in the order book. Mac is sweating through his polyester suit.\"",
+            "\"Autonomous script loop executed. Posting new comic frame to X feed...\"",
+            "\"Solana TPS looking buttery smooth. Pumping more espresso into the system.\""
+        ];
+
+        let index = 0;
+        setInterval(() => {
+            index = (index + 1) % thoughts.length;
+            const element = document.getElementById('aiThought');
+            if(element) {
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.innerText = thoughts[index];
+                    element.style.opacity = '1';
+                }, 300);
+            }
+        }, 8000);
+
+        // Simple Wallet Connect simulation (Can be swapped with Solana Wallet Adapter later)
+        document.getElementById('connectWallet').addEventListener('click', () => {
+            alert('Solana Wallet Adapter ready to plug in! (Supports Phantom & Solflare)');
+        });
+    </script>
+</body>
+</html>
