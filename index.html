@@ -3,141 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INSIDER.AI | Real-Time Solana Buy & Trade Intelligence</title>
-    <!-- Tailwind CSS CDN -->
+    <title>TOON.MONEY | Live Cartoon Market Terminal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        insider: { bg: '#030712', card: '#0b0f19', green: '#00ff66', alert: '#ff0055', border: '#1f293d' }
+                        toon: { bg: '#0b0f19', card: '#131c2e', green: '#10b981', accent: '#3b82f6', border: '#1e293b' }
                     },
                     fontFamily: {
-                        mono: ['"Share Tech Mono"', 'monospace'],
-                        cyber: ['"Orbitron"', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
                     }
                 }
             }
         }
     </script>
     <style>
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(1000%); }
-        }
-        .scanner {
-            animation: scanline 4s linear infinite;
+        @keyframes pulseGreen {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.02); }
+        .buy-flash {
+            animation: pulseGreen 1.5s infinite;
         }
     </style>
 </head>
-<body class="bg-insider-bg text-gray-200 font-mono min-h-screen flex flex-col justify-between p-4 sm:p-6 relative overflow-x-hidden selection:bg-insider-green selection:text-black">
+<body class="bg-toon-bg text-gray-100 font-sans min-h-screen flex flex-col justify-between p-4 sm:p-6 selection:bg-toon-green selection:text-black">
 
-    <!-- Background Grid -->
-    <div class="absolute inset-0 bg-[radial-gradient(#1f293d_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
-
-    <!-- Top Bar -->
-    <header class="max-w-7xl mx-auto w-full flex justify-between items-center mb-6 relative z-10 border-b border-insider-border pb-4">
+    <!-- Top Navigation Header -->
+    <header class="max-w-7xl mx-auto w-full flex justify-between items-center mb-6 pb-4 border-b border-toon-border">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-lg bg-insider-green/10 border border-insider-green/40 flex items-center justify-center text-insider-green font-black text-lg">
-                ⚡
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-toon-green to-emerald-400 flex items-center justify-center text-black font-black text-xl shadow-lg shadow-emerald-500/20">
+                💰
             </div>
             <div>
-                <h1 class="text-white font-black tracking-widest text-base font-cyber">INSIDER.AI</h1>
-                <p class="text-[10px] text-insider-green font-mono">MEMEPOOL LIVE BUY & TRADE INTERCEPTOR</p>
+                <h1 class="font-extrabold text-lg tracking-tight text-white flex items-center gap-2">
+                    TOON.MONEY <span class="text-[10px] bg-toon-green/10 text-toon-green border border-toon-green/30 px-2 py-0.5 rounded-full font-mono">LIVE TERMINAL</span>
+                </h1>
+                <p class="text-xs text-gray-400">Cartoon-Platform Real-Time Buy & Trade Feed</p>
             </div>
         </div>
-        <button id="connectWallet" class="bg-insider-green hover:bg-emerald-400 text-black font-black px-5 py-2 rounded-lg text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(0,255,102,0.3)] transition font-cyber cursor-pointer">
-            CONNECT WALLET
-        </button>
+
+        <div class="flex items-center space-x-3">
+            <div class="hidden sm:flex flex-col text-right text-xs font-mono">
+                <span class="text-gray-400">NETWORK: <span class="text-toon-green">SOLANA MAINNET</span></span>
+                <span class="text-gray-500">STATUS: CONNECTED</span>
+            </div>
+            <button id="connectWallet" class="bg-gradient-to-r from-toon-green to-emerald-500 hover:from-emerald-400 hover:to-emerald-600 text-black font-extrabold px-5 py-2.5 rounded-xl text-xs tracking-wider uppercase shadow-lg shadow-emerald-500/20 transition transform hover:scale-105 cursor-pointer">
+                CONNECT PHANTOM
+            </button>
+        </div>
     </header>
 
-    <!-- Main Content Grid -->
-    <main class="max-w-7xl mx-auto w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+    <!-- Main Content Layout -->
+    <main class="max-w-7xl mx-auto w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- Left Column: Live Terminal Feed (The Alerts) -->
+        <!-- Left Main Panel: Live Buy & Trade Ticker -->
         <div class="lg:col-span-8 flex flex-col space-y-4">
             
-            <!-- Terminal Header -->
-            <div class="bg-insider-card border border-insider-border rounded-xl p-4 flex justify-between items-center">
-                <div class="flex items-center space-x-2 text-xs font-cyber text-insider-green">
-                    <span class="w-2.5 h-2.5 rounded-full bg-insider-green animate-ping"></span>
-                    <span>LISTENING TO SOLANA LAUNCHPAD CONTRACTS</span>
+            <!-- Filter Bar -->
+            <div class="bg-toon-card border border-toon-border rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-toon-green animate-ping"></span>
+                    <h2 class="font-bold text-sm tracking-wide text-white">LIVE COIN ACTIVITY (CARTOON MONEY)</h2>
                 </div>
-                <div class="text-xs text-gray-400">
-                    STATUS: <span class="text-white font-bold">ACTIVE (0ms DELAY)</span>
+                <div class="flex items-center space-x-2 text-xs font-mono">
+                    <span class="bg-black/40 border border-toon-border px-3 py-1.5 rounded-lg text-toon-green font-bold">🟢 AUTO-REFRESH ON</span>
                 </div>
             </div>
 
-            <!-- Live Alert Stream Box -->
-            <div class="bg-insider-card border border-insider-border rounded-xl p-4 flex-grow min-h-[380px] relative overflow-hidden flex flex-col justify-between">
-                <!-- Scanline effect -->
-                <div class="absolute inset-x-0 h-1 bg-insider-green/20 scanner pointer-events-none"></div>
-
-                <div id="alertStream" class="space-y-3 font-mono text-xs overflow-y-auto max-h-[380px] pr-2">
-                    <div class="p-3 rounded bg-black/60 border border-emerald-900/50 flex justify-between items-center">
-                        <div>
-                            <span class="text-insider-green font-bold">[BUY INTERCEPT]</span> 
-                            <span class="text-white ml-2">$TOON (Cartoon Token)</span>
-                            <span class="text-gray-400 text-[10px] ml-2">14.5 SOL Swapped</span>
+            <!-- Live Ticker Feed Stream -->
+            <div id="tickerFeed" class="space-y-3 font-mono">
+                <!-- Initial Mock Item 1 -->
+                <div class="bg-toon-card border border-toon-border rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:border-toon-green/50 transition shadow-md">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-950/60 border border-toon-green/30 flex items-center justify-center text-lg">
+                            🚀
                         </div>
-                        <span class="text-emerald-400 font-bold bg-emerald-950 px-2 py-0.5 rounded">LIVE TRADE</span>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-extrabold text-white text-sm">$CBUCKS</span>
+                                <span class="bg-toon-green text-black text-[10px] font-black px-2 py-0.5 rounded uppercase buy-flash">BUY DETECTED</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-0.5">Purchased via Cartoon Money Bonding Curve</p>
+                        </div>
                     </div>
-                    <div class="p-3 rounded bg-black/60 border border-yellow-900/50 flex justify-between items-center">
-                        <div>
-                            <span class="text-yellow-400 font-bold">[TRADE VOLUME]</span> 
-                            <span class="text-white ml-2">$PEPEK (Meme King)</span>
-                            <span class="text-gray-400 text-[10px] ml-2">42.0 SOL Volume Spike</span>
+                    <div class="flex items-center space-x-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-toon-border">
+                        <div class="text-right">
+                            <span class="block text-toon-green font-bold text-sm">+18.4 SOL</span>
+                            <span class="text-[10px] text-gray-500">Just now</span>
                         </div>
-                        <span class="text-yellow-400 font-bold bg-yellow-950 px-2 py-0.5 rounded">BUY DETECTED</span>
+                        <a href="https://cartoon-money.com" target="_blank" class="bg-black/60 hover:bg-toon-green hover:text-black border border-toon-border text-gray-300 px-3 py-1.5 rounded-xl text-xs font-bold transition">
+                            TRADE ↗
+                        </a>
                     </div>
                 </div>
 
-                <!-- Bottom Tier Gating Notice -->
-                <div class="mt-4 pt-3 border-t border-insider-border text-center text-xs text-gray-400 font-cyber">
-                    🔒 <span class="text-insider-green">Holder Access:</span> Connect wallet holding $INSIDER to unlock instant automated Telegram Webhooks.
+                <!-- Initial Mock Item 2 -->
+                <div class="bg-toon-card border border-toon-border rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:border-blue-500/50 transition shadow-md">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-950/60 border border-blue-500/30 flex items-center justify-center text-lg">
+                            📈
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-extrabold text-white text-sm">$DUCKY</span>
+                                <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">TRADE UPDATE</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-0.5">Volume spike registered on Cartoon Money</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-toon-border">
+                        <div class="text-right">
+                            <span class="block text-blue-400 font-bold text-sm">42.1 SOL Vol</span>
+                            <span class="text-[10px] text-gray-500">12s ago</span>
+                        </div>
+                        <a href="https://cartoon-money.com" target="_blank" class="bg-black/60 hover:bg-blue-500 hover:text-black border border-toon-border text-gray-300 px-3 py-1.5 rounded-xl text-xs font-bold transition">
+                            TRADE ↗
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Right Column: Action & Launch Panel -->
+        <!-- Right Side Panel: Holder Alpha & Access Gate -->
         <div class="lg:col-span-4 flex flex-col space-y-4">
             
-            <!-- Stats Card -->
-            <div class="bg-insider-card border border-insider-border rounded-xl p-5 space-y-4">
-                <h3 class="text-sm font-cyber font-bold text-white tracking-wider border-b border-insider-border pb-2">
-                    SYSTEM METRICS
+            <!-- Access Pass Box -->
+            <div class="bg-toon-card border border-toon-border rounded-2xl p-5 space-y-4 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-toon-green/5 rounded-full blur-2xl pointer-events-none"></div>
+                <h3 class="font-bold text-sm text-white tracking-wide border-b border-toon-border pb-3 flex items-center justify-between">
+                    <span>VIP TELEGRAM ALERTS</span>
+                    <span class="text-[10px] text-toon-green bg-emerald-950 px-2 py-0.5 rounded">HOLDER ONLY</span>
                 </h3>
-                <div class="space-y-3 text-xs">
-                    <div class="flex justify-between">
-                        <span class="text-gray-400">Total Tracked Today:</span>
-                        <span class="text-white font-bold">1,482 Coins</span>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Get instant pinged notifications on your Telegram the exact millisecond a coin on Cartoon Money triggers a green <strong>BUY</strong> or <strong>TRADE</strong> event.
+                </p>
+                <div class="bg-black/40 border border-toon-border rounded-xl p-3 text-xs font-mono space-y-2">
+                    <div class="flex justify-between text-gray-400">
+                        <span>Required Holding:</span>
+                        <span class="text-white font-bold">10,000 $CASH</span>
                     </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-400">Average Detection:</span>
-                        <span class="text-insider-green font-bold">0.04s</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-400">Active Subscribers:</span>
-                        <span class="text-yellow-400 font-bold">3,890 Degens</span>
+                    <div class="flex justify-between text-gray-400">
+                        <span>Alert Speed:</span>
+                        <span class="text-toon-green font-bold">Instant (0ms)</span>
                     </div>
                 </div>
-
-                <a href="https://pump.fun" target="_blank" class="block w-full bg-gradient-to-r from-insider-green to-emerald-500 hover:from-emerald-400 hover:to-emerald-600 text-black font-black text-center py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-[0_0_25px_rgba(0,255,102,0.3)] transition transform hover:scale-105 font-cyber">
-                    🚀 LAUNCH $INSIDER TOKEN
-                </a>
+                <button class="w-full bg-black hover:bg-toon-border border border-toon-border text-white font-bold py-3 rounded-xl text-xs tracking-wider uppercase transition cursor-pointer">
+                    VERIFY HOLDINGS & CONNECT BOT
+                </button>
             </div>
 
             <!-- AI Agent Status Card -->
-            <div class="bg-insider-card border border-insider-border rounded-xl p-5 space-y-2">
-                <div class="flex items-center space-x-2 text-xs font-cyber text-insider-green">
-                    <span class="w-2 h-2 rounded-full bg-insider-green"></span>
-                    <span>AI AGENT STATUS</span>
+            <div class="bg-toon-card border border-toon-border rounded-2xl p-5 space-y-3 shadow-xl">
+                <div class="flex items-center space-x-2 text-xs font-bold text-toon-green">
+                    <span class="w-2 h-2 rounded-full bg-toon-green animate-ping"></span>
+                    <span>AGENTIC AI MONITORING</span>
                 </div>
-                <p id="aiLog" class="text-xs text-gray-300 leading-relaxed font-mono">
-                    "Monitoring platform order books. Filtering out low-liquidity rug pulls. Formatting high-conviction buy alerts..."
+                <p class="text-xs text-gray-300 font-mono leading-relaxed">
+                    "Scanning Cartoon Money contract streams. Isolating high-probability green buy setups and high-volume trade executions..."
                 </p>
             </div>
 
@@ -146,46 +173,79 @@
     </main>
 
     <!-- Footer -->
-    <footer class="max-w-7xl mx-auto w-full text-center text-xs text-gray-600 mt-6 relative z-10 font-cyber">
-        <p>&copy; 2026 INSIDER.AI. Autonomous Solana Intelligence Terminal. Zero Expenses.</p>
+    <footer class="max-w-7xl mx-auto w-full text-center text-xs text-gray-500 mt-6 pt-4 border-t border-toon-border font-mono">
+        <p>&copy; 2026 TOON.MONEY Terminal. Built for Cartoon Money Platform Trackers. Zero Expenses.</p>
     </footer>
 
-    <!-- JavaScript Alert Simulator Engine -->
+    <!-- Interactive JavaScript Engine simulating real-time Buy/Trade events -->
     <script>
-        const sampleTokens = ["$CHAD", "$WOJAK", "$SOLAI", "$MOONCAT", "$FART", "$NINJA", "$APEX", "$CYBER"];
-        const eventTypes = [
-            { type: "BUY INTERCEPT", color: "text-insider-green", border: "border-emerald-900/50", bg: "bg-emerald-950", label: "LIVE TRADE" },
-            { type: "TRADE VOLUME", color: "text-yellow-400", border: "border-yellow-900/50", bg: "bg-yellow-950", label: "BUY DETECTED" },
-            { type: "WHALE ACCUMULATION", color: "text-purple-400", border: "border-purple-900/50", bg: "bg-purple-950", label: "HEAVY BUY" }
-        ];
-
+        const cartoonCoins = ["$MINT", "$TOON", "$DUCK", "$BUMP", "$CASH", "$POP", "$PIXEL", "$SQUIG"];
+        
         setInterval(() => {
-            const token = sampleTokens[Math.floor(Math.random() * sampleTokens.length)];
-            const ev = eventTypes[Math.floor(Math.random() * eventTypes.length)];
-            const solAmount = (Math.random() * 35 + 2).toFixed(1);
+            const coin = cartoonCoins[Math.floor(Math.random() * cartoonCoins.length)];
+            const isBuy = Math.random() > 0.4;
+            const sol = (Math.random() * 25 + 1.5).toFixed(1);
 
-            const stream = document.getElementById('alertStream');
-            const newAlert = document.createElement('div');
-            newAlert.className = `p-3 rounded bg-black/60 border ${ev.border} flex justify-between items-center transition-all duration-300 opacity-0`;
-            newAlert.innerHTML = `
-                <div>
-                    <span class="${ev.color} font-bold">[${ev.type}]</span> 
-                    <span class="text-white ml-2">${token}</span>
-                    <span class="text-gray-400 text-[10px] ml-2">${solAmount} SOL Inflow</span>
-                </div>
-                <span class="${ev.color} font-bold ${ev.bg} px-2 py-0.5 rounded text-[10px]">${ev.label}</span>
-            `;
+            const feed = document.getElementById('tickerFeed');
+            const item = document.createElement('div');
             
-            stream.insertBefore(newAlert, stream.firstChild);
-            setTimeout(() => newAlert.style.opacity = '1', 50);
-
-            if (stream.children.length > 6) {
-                stream.removeChild(stream.lastChild);
+            item.className = "bg-toon-card border border-toon-border rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 transition shadow-md opacity-0 transform -translate-y-2";
+            
+            if (isBuy) {
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-950/60 border border-toon-green/30 flex items-center justify-center text-lg">🚀</div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-extrabold text-white text-sm">${coin}</span>
+                                <span class="bg-toon-green text-black text-[10px] font-black px-2 py-0.5 rounded uppercase buy-flash">BUY DETECTED</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-0.5">Purchased via Cartoon Money Bonding Curve</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-toon-border">
+                        <div class="text-right">
+                            <span class="block text-toon-green font-bold text-sm">+${sol} SOL</span>
+                            <span class="text-[10px] text-gray-500">Just now</span>
+                        </div>
+                        <a href="https://cartoon-money.com" target="_blank" class="bg-black/60 hover:bg-toon-green hover:text-black border border-toon-border text-gray-300 px-3 py-1.5 rounded-xl text-xs font-bold transition">TRADE ↗</a>
+                    </div>
+                `;
+            } else {
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-950/60 border border-blue-500/30 flex items-center justify-center text-lg">📈</div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-extrabold text-white text-sm">${coin}</span>
+                                <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">TRADE UPDATE</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-0.5">Volume activity update on Cartoon Money</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-toon-border">
+                        <div class="text-right">
+                            <span class="block text-blue-400 font-bold text-sm">${sol} SOL Vol</span>
+                            <span class="text-[10px] text-gray-500">Just now</span>
+                        </div>
+                        <a href="https://cartoon-money.com" target="_blank" class="bg-black/60 hover:bg-blue-500 hover:text-black border border-toon-border text-gray-300 px-3 py-1.5 rounded-xl text-xs font-bold transition">TRADE ↗</a>
+                    </div>
+                `;
             }
-        }, 4000);
+
+            feed.insertBefore(item, feed.firstChild);
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 50);
+
+            if (feed.children.length > 5) {
+                feed.removeChild(feed.lastChild);
+            }
+        }, 3500);
 
         document.getElementById('connectWallet').addEventListener('click', () => {
-            alert('Solana Wallet Adapter ready: Connect Phantom to verify token holding and unlock live Telegram webhooks!');
+            alert('Phantom Wallet Adapter initialized: Ready to verify your $CASH holdings for Cartoon Money VIP alerts!');
         });
     </script>
 </body>
