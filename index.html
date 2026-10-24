@@ -13,7 +13,7 @@
             theme: {
                 extend: {
                     colors: {
-                        arena: { bg: '#0b0c10', card: '#151720', red: '#dc2626', yellow: '#eab308', border: '#2a2e3d' }
+                        arena: { bg: '#0b0c10', card: '#12141c', red: '#dc2626', yellow: '#eab308', border: '#2a2e3d' }
                     },
                     fontFamily: {
                         mono: ['"Share Tech Mono"', 'monospace'],
@@ -23,6 +23,16 @@
             }
         }
     </script>
+    <style>
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 25px rgba(220, 38, 38, 0.2); }
+            50% { box-shadow: 0 0 50px rgba(234, 179, 8, 0.3); }
+        }
+        .arena-stage-glow {
+            animation: pulseGlow 5s infinite ease-in-out;
+            background: linear-gradient(135deg, #12141c 0%, #050508 100%);
+        }
+    </style>
 </head>
 <body class="bg-arena-bg text-gray-200 font-mono min-h-screen flex flex-col justify-between p-4 sm:p-8 relative overflow-x-hidden selection:bg-arena-red selection:text-white">
 
@@ -36,7 +46,7 @@
                 GLITCH.FIGHT <span class="text-xs text-yellow-400 font-normal">($GLITCH)</span>
             </div>
         </div>
-        <button id="connectWalletBtn" class="bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-black px-6 py-2 rounded-xl text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(234,179,8,0.4)] hover:scale-105 transition-transform border border-yellow-200 cursor-pointer font-cyber">
+        <button id="connectWalletBtn" class="bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-black px-6 py-2.5 rounded-xl text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(234,179,8,0.4)] hover:scale-105 transition-transform border border-yellow-200 cursor-pointer font-cyber">
             CONNECT WALLET
         </button>
     </header>
@@ -59,19 +69,11 @@
                 </div>
             </div>
 
-            <!-- Main Visual Arena Stage Container -->
-            <div class="relative w-full rounded-xl overflow-hidden border border-[#2a2e3d] bg-[#050508] shadow-2xl">
+            <!-- Main Visual Arena Stage Container (Zero image dependency, guaranteed rendering) -->
+            <div class="relative w-full rounded-xl overflow-hidden border-2 border-[#2a2e3d] arena-stage-glow shadow-2xl">
                 
-                <!-- Background Image with Clean Visibility -->
-                <div class="absolute inset-0">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop" 
-                         alt="Cyber Arena" 
-                         class="w-full h-full object-cover opacity-60 mix-blend-luminosity hover:mix-blend-normal transition duration-500" />
-                    <div class="absolute inset-0 bg-gradient-to-r from-red-950/40 via-black/60 to-yellow-950/40"></div>
-                </div>
-                
-                <!-- Foreground UI Overlays -->
-                <div class="relative z-10 p-4 sm:p-6 flex flex-col justify-between min-h-[420px]">
+                <!-- Foreground UI & Character Stage -->
+                <div class="relative z-10 p-5 sm:p-8 flex flex-col justify-between min-h-[460px]">
                     
                     <!-- Top Health Bars Row -->
                     <div class="grid grid-cols-2 gap-4 sm:gap-8 items-center">
@@ -98,42 +100,57 @@
                         </div>
                     </div>
 
-                    <!-- Center Visual Fighters Preview Cards -->
-                    <div class="grid grid-cols-2 gap-4 my-6">
-                        <div class="bg-black/80 border border-red-500/40 rounded-xl p-3 text-center backdrop-blur-sm transform hover:scale-105 transition">
-                            <div class="text-3xl mb-1">🥷</div>
-                            <h4 class="text-xs font-cyber font-bold text-red-400">RED CORNER FIGHTER</h4>
-                            <p class="text-[10px] text-gray-400 mt-0.5">CYBER SAMURAI V2</p>
+                    <!-- Center Visual Fighters Avatars (Built-in High-End UI Cards) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-6 items-center">
+                        <!-- Red Corner Fighter Card -->
+                        <div class="bg-gradient-to-br from-red-950/40 to-black border-2 border-red-600/50 rounded-2xl p-5 text-center shadow-[0_0_30px_rgba(220,38,38,0.2)] relative overflow-hidden group">
+                            <div class="absolute -right-10 -bottom-10 text-8xl opacity-10 font-black">⛩️</div>
+                            <div class="w-20 h-20 mx-auto rounded-2xl bg-red-950/60 border-2 border-red-500 flex items-center justify-center text-4xl shadow-lg mb-3">
+                                🥷
+                            </div>
+                            <h3 class="font-cyber font-black text-white text-base tracking-wider">CYBER_SAMURAI</h3>
+                            <p class="text-xs text-red-400 font-mono mt-1">CLASS: NEURAL BLADE</p>
+                            <div class="mt-3 inline-block bg-red-950/80 border border-red-700/50 px-3 py-1 rounded text-[10px] text-red-300 font-bold">
+                                STAKED: 482.5 SOL
+                            </div>
                         </div>
-                        <div class="bg-black/80 border border-yellow-500/40 rounded-xl p-3 text-center backdrop-blur-sm transform hover:scale-105 transition">
-                            <div class="text-3xl mb-1">⚡</div>
-                            <h4 class="text-xs font-cyber font-bold text-yellow-400">YELLOW CORNER FIGHTER</h4>
-                            <p class="text-[10px] text-gray-400 mt-0.5">PHANTOM WRAITH</p>
+
+                        <!-- Yellow Corner Fighter Card -->
+                        <div class="bg-gradient-to-br from-yellow-950/40 to-black border-2 border-yellow-600/50 rounded-2xl p-5 text-center shadow-[0_0_30px_rgba(234,179,8,0.2)] relative overflow-hidden group">
+                            <div class="absolute -right-10 -bottom-10 text-8xl opacity-10 font-black">⚡</div>
+                            <div class="w-20 h-20 mx-auto rounded-2xl bg-yellow-950/60 border-2 border-yellow-500 flex items-center justify-center text-4xl shadow-lg mb-3">
+                                ⚡
+                            </div>
+                            <h3 class="font-cyber font-black text-white text-base tracking-wider">PHANTOM_X</h3>
+                            <p class="text-xs text-yellow-400 font-mono mt-1">CLASS: ENERGY WRAITH</p>
+                            <div class="mt-3 inline-block bg-yellow-950/80 border border-yellow-700/50 px-3 py-1 rounded text-[10px] text-yellow-300 font-bold">
+                                STAKED: 311.8 SOL
+                            </div>
                         </div>
                     </div>
 
                     <!-- Bottom Commentary & Stats HUD -->
                     <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-end">
-                        <div class="sm:col-span-4 bg-black/90 border border-red-900/40 p-3 rounded-lg backdrop-blur-md hidden sm:block font-cyber">
-                            <h3 class="text-white font-black text-xs tracking-wider text-red-500 mb-1">CYBER_SAMURAI</h3>
+                        <div class="sm:col-span-3 bg-black/90 border border-red-900/40 p-3 rounded-lg backdrop-blur-md hidden sm:block font-cyber">
+                            <h4 class="text-white font-black text-[11px] tracking-wider text-red-500 mb-1">SAMURAI STATS</h4>
                             <div class="text-[10px] text-gray-400 space-y-0.5">
-                                <div>AGILITY: 80% | POWER: 90%</div>
-                                <div class="text-red-400 font-bold">STAKED: 482.5 SOL</div>
+                                <div>AGILITY: 80%</div>
+                                <div>POWER: 90%</div>
                             </div>
                         </div>
 
-                        <div class="sm:col-span-4 bg-black/95 border border-yellow-500/50 rounded-xl p-3 text-center shadow-2xl backdrop-blur-md">
-                            <div class="text-[9px] text-yellow-400 tracking-widest uppercase mb-1 font-cyber">GLITCH_COMMENTARY</div>
+                        <div class="sm:col-span-6 bg-black/95 border border-yellow-500/50 rounded-xl p-3.5 text-center shadow-2xl backdrop-blur-md">
+                            <div class="text-[9px] text-yellow-400 tracking-widest uppercase mb-1 font-cyber">GLITCH_AI_COMMENTARY</div>
                             <p id="commentaryText" class="text-xs sm:text-sm text-white font-bold leading-relaxed min-h-[40px] flex items-center justify-center transition-opacity duration-300">
                                 "UNIT-04 (CYBER_SAMURAI) executes a brutal neural counter-attack! Phantom-X drops 14% health!"
                             </p>
                         </div>
 
-                        <div class="sm:col-span-4 bg-black/90 border border-yellow-900/40 p-3 rounded-lg backdrop-blur-md hidden sm:block text-right font-cyber">
-                            <h3 class="text-white font-black text-xs tracking-wider text-yellow-400 mb-1">PHANTOM_X</h3>
+                        <div class="sm:col-span-3 bg-black/90 border border-yellow-900/40 p-3 rounded-lg backdrop-blur-md hidden sm:block text-right font-cyber">
+                            <h4 class="text-white font-black text-[11px] tracking-wider text-yellow-400 mb-1">PHANTOM STATS</h4>
                             <div class="text-[10px] text-gray-400 space-y-0.5">
-                                <div>AGILITY: 95% | POWER: 70%</div>
-                                <div class="text-yellow-400 font-bold">STAKED: 311.8 SOL</div>
+                                <div>AGILITY: 95%</div>
+                                <div>POWER: 70%</div>
                             </div>
                         </div>
                     </div>
