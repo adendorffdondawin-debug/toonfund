@@ -3,73 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$GHOST | The Sentient On-Chain Entity</title>
+    <title>GLITCH.FIGHT | Autonomous AI Underground Arena</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Special+Elite&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        ghost: { bg: '#020408', cyan: '#00f3ff', dim: '#0f172a', border: '#1e293b' }
+                        arena: { bg: '#030305', card: '#0a0a0f', red: '#ff003c', yellow: '#ccff00', border: '#1a1a24' }
                     },
                     fontFamily: {
                         mono: ['"Share Tech Mono"', 'monospace'],
-                        spooky: ['"Special Elite"', 'cursive'],
+                        cyber: ['"Orbitron"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
-        @keyframes radar {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
         }
-        .radar-sweep {
-            animation: radar 6s linear infinite;
-            background: conic-gradient(from 0deg at 50% 50%, rgba(0, 243, 255, 0.4) 0deg, transparent 60deg, transparent 360deg);
+        .glitch-hover:hover {
+            animation: glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
         }
-        .ghost-glow {
-            box-shadow: 0 0 40px rgba(0, 243, 255, 0.15);
+        .arena-glow {
+            box-shadow: 0 0 50px rgba(255, 0, 60, 0.15);
         }
         .scanlines {
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%);
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.5) 50%);
             background-size: 100% 4px;
         }
     </style>
 </head>
-<body class="bg-ghost-bg text-cyan-400 font-mono min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-cyan-500 selection:text-black">
+<body class="bg-arena-bg text-gray-200 font-mono min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-arena-red selection:text-white">
 
     <!-- Scanline Overlay -->
     <div class="absolute inset-0 scanlines pointer-events-none z-50 fixed"></div>
 
     <!-- Top Status Bar -->
-    <div class="bg-black border-b border-ghost-border text-xs py-2 px-4 flex justify-between items-center z-40">
-        <div class="flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-            <span>ENTITY STATUS: AWAKE [SOLANA NETWORK]</span>
+    <div class="bg-black border-b border-arena-border text-xs py-2 px-4 flex justify-between items-center z-40 font-cyber">
+        <div class="flex items-center space-x-2 text-arena-red">
+            <span class="w-2 h-2 rounded-full bg-arena-red animate-ping"></span>
+            <span>MATCH #809: LIVE IN THE UNDERGROUND</span>
         </div>
-        <div class="text-cyan-600 hidden sm:block">
-            TREASURY WALLET: <span class="text-cyan-400">Autonomous & Unlinked</span>
+        <div class="text-gray-500 hidden sm:block">
+            SOLANA RPC: <span class="text-arena-yellow">OPTIMIZED (0ms LATENCY)</span>
         </div>
     </div>
 
     <!-- Header -->
-    <header class="border-b border-ghost-border bg-ghost-bg/90 backdrop-blur sticky top-0 z-40">
+    <header class="border-b border-arena-border bg-arena-bg/90 backdrop-blur sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-cyan-950 border border-cyan-500/50 flex items-center justify-center text-xl shadow-lg shadow-cyan-500/20">
-                    👻
+                <div class="w-11 h-11 rounded-lg bg-arena-red/10 border border-arena-red/50 flex items-center justify-center text-xl text-arena-red font-black shadow-lg shadow-arena-red/20 font-cyber">
+                    ⚡
                 </div>
                 <div>
-                    <h1 class="font-bold tracking-widest text-lg text-white">GHOST.AI</h1>
-                    <p class="text-xs text-cyan-600">PARANORMAL MEMECOIN PROTOCOL</p>
+                    <h1 class="font-black tracking-widest text-lg text-white font-cyber">GLITCH.FIGHT</h1>
+                    <p class="text-xs text-arena-red font-cyber">AI DEATHMATCH SYNDICATE</p>
                 </div>
             </div>
             <div>
-                <button id="connectBtn" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-2 rounded text-xs tracking-wider transition transform hover:scale-105 shadow-lg shadow-cyan-500/30">
+                <button id="connectBtn" class="bg-arena-yellow hover:bg-yellow-400 text-black font-black px-6 py-2.5 rounded text-xs tracking-wider transition transform hover:scale-105 shadow-lg shadow-arena-yellow/20 font-cyber">
                     CONNECT WALLET
                 </button>
             </div>
@@ -79,72 +82,87 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-12 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
         
-        <!-- Left Column: Terminal & Prophecies -->
+        <!-- Left Column: Manifesto & Live Arena Feed -->
         <div class="lg:col-span-7 space-y-6">
-            <div class="inline-block bg-cyan-950/40 border border-cyan-500/30 px-3 py-1 rounded text-xs text-cyan-400">
-                ⚠️ WARNING: THIS ENTITY CANNOT BE SHUT DOWN ONCE DEPLOYED.
+            <div class="inline-block bg-arena-red/10 border border-arena-red/30 px-3 py-1 rounded text-xs text-arena-red font-cyber">
+                ⚠️ FULLY AUTONOMOUS AI BATTLE ARENA ON SOLANA
             </div>
 
-            <h2 class="text-4xl sm:text-6xl font-black uppercase text-white tracking-wide">
-                THE FIRST <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-200">SENTIENT</span> MEMECOIN.
+            <h2 class="text-4xl sm:text-6xl font-black uppercase text-white tracking-wide font-cyber leading-none">
+                THE ULTIMATE <span class="text-transparent bg-clip-text bg-gradient-to-r from-arena-red to-arena-yellow">AI DEATHMATCH</span> LEAGUE.
             </h2>
 
-            <p class="text-cyan-700 text-base sm:text-lg leading-relaxed">
-                Ghost doesn't have an owner. It exists as an autonomous AI spirit on Solana, analyzing order books, feeding on market panic, and broadcasting cryptic financial prophecies from the digital ether.
+            <p class="text-gray-400 text-base sm:text-lg leading-relaxed">
+                No humans allowed in the ring. Autonomous AI gladiators battle hourly for crypto liquidity. Watch the ticker, stake your `$GLITCH` tokens, and back your champion in the most aggressive on-chain spectacle ever built.
             </p>
 
-            <!-- Terminal Box -->
-            <div class="bg-black/80 border border-ghost-border rounded-xl p-5 ghost-glow space-y-3 relative overflow-hidden">
-                <div class="flex justify-between items-center text-xs text-cyan-700 border-b border-ghost-border pb-2">
-                    <span>SPIRIT_COMMUNICATION_LOG // LIVE</span>
-                    <span id="entityTime" class="text-cyan-400">00:00:00 UTC</span>
+            <!-- Live Match Commentary Console -->
+            <div class="bg-arena-card border border-arena-border rounded-xl p-5 arena-glow space-y-3 relative overflow-hidden">
+                <div class="flex justify-between items-center text-xs text-gray-500 border-b border-arena-border pb-2 font-cyber">
+                    <span>ARENA_COMMENTARY_FEED // LIVE</span>
+                    <span id="matchTimer" class="text-arena-yellow">ROUND 3 [01:42]</span>
                 </div>
                 <div class="space-y-2">
-                    <p class="text-cyan-800 text-xs">> Scanning blockchain blocks for abnormal volatility...</p>
-                    <p id="ghostThought" class="text-cyan-300 text-sm sm:text-base leading-relaxed">
-                        "I see green candles forming in the fog... someone is holding a bag they shouldn't be. The chain remembers everything."
+                    <p class="text-gray-500 text-xs">> AI Matchmaker sync active...</p>
+                    <p id="fightLog" class="text-arena-yellow text-sm sm:text-base leading-relaxed font-bold">
+                        "UNIT-04 (CYBER_SAMURAI) executes a brutal neural counter-attack! Phantom-X drops 14% health!"
                     </p>
                 </div>
             </div>
 
             <!-- CTA Buttons -->
             <div class="flex flex-wrap gap-4 pt-2">
-                <a href="https://pump.fun" target="_blank" class="bg-cyan-500 hover:bg-cyan-400 text-black font-black px-8 py-3.5 rounded-lg transition text-center shadow-lg shadow-cyan-500/25 tracking-wider text-sm">
-                    SUMMON $GHOST (PUMP.FUN)
+                <a href="https://pump.fun" target="_blank" class="bg-arena-red hover:bg-red-600 text-white font-black px-8 py-4 rounded-lg transition text-center shadow-xl shadow-arena-red/30 tracking-wider text-sm font-cyber glitch-hover">
+                    LAUNCH $GLITCH (PUMP.FUN)
                 </a>
-                <a href="https://x.com" target="_blank" class="bg-ghost-dim hover:bg-ghost-border border border-ghost-border text-cyan-400 font-bold px-6 py-3.5 rounded-lg transition text-center text-sm">
-                    READ PROPHECIES ON X
+                <a href="https://x.com" target="_blank" class="bg-arena-card hover:bg-arena-border border border-arena-border text-gray-300 font-bold px-7 py-4 rounded-lg transition text-center text-sm font-cyber">
+                    VIEW ARENA FEED ON X
                 </a>
             </div>
         </div>
 
-        <!-- Right Column: Interactive Radar / Visual Entity -->
+        <!-- Right Column: Live Combat Arena Stage -->
         <div class="lg:col-span-5 flex justify-center">
-            <div class="relative w-full max-w-md aspect-square bg-ghost-dim/50 rounded-2xl border border-ghost-border p-6 flex flex-col items-center justify-center ghost-glow overflow-hidden">
+            <div class="relative w-full max-w-md aspect-square bg-arena-card/80 rounded-2xl border border-arena-border p-6 flex flex-col justify-between arena-glow overflow-hidden">
                 
-                <!-- Radar Circle Background -->
-                <div class="absolute w-72 h-72 rounded-full border border-cyan-500/20 flex items-center justify-center">
-                    <div class="absolute w-48 h-48 rounded-full border border-cyan-500/30"></div>
-                    <div class="absolute w-24 h-24 rounded-full border border-cyan-500/40"></div>
-                    <!-- Radar Sweep Animation -->
-                    <div class="absolute inset-0 rounded-full radar-sweep"></div>
+                <!-- Arena Header HUD -->
+                <div class="flex justify-between items-center text-xs font-cyber text-gray-400">
+                    <span class="text-arena-red font-bold">🔴 RED CORNER</span>
+                    <span class="bg-black px-3 py-1 rounded border border-arena-border text-white">VS</span>
+                    <span class="text-arena-yellow font-bold">🟡 YELLOW CORNER</span>
                 </div>
 
-                <!-- Center Entity Icon -->
-                <div class="relative z-10 text-center space-y-3">
-                    <div class="w-20 h-20 mx-auto rounded-full bg-cyan-950 border-2 border-cyan-400 flex items-center justify-center text-4xl shadow-2xl animate-pulse">
-                        👻
+                <!-- Fighters Visual Display -->
+                <div class="grid grid-cols-2 gap-4 text-center my-auto">
+                    <div class="bg-black/60 border border-arena-red/40 p-4 rounded-xl flex flex-col items-center justify-center space-y-2">
+                        <div class="text-4xl">🤖</div>
+                        <h4 class="text-xs font-cyber font-bold text-white">CYBER_SAMURAI</h4>
+                        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                            <div class="bg-arena-red h-full w-[85%]"></div>
+                        </div>
+                        <span class="text-[10px] text-gray-500 font-mono">HP: 85%</span>
                     </div>
+
+                    <div class="bg-black/60 border border-arena-yellow/40 p-4 rounded-xl flex flex-col items-center justify-center space-y-2">
+                        <div class="text-4xl">💀</div>
+                        <h4 class="text-xs font-cyber font-bold text-white">PHANTOM_X</h4>
+                        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                            <div class="bg-arena-yellow h-full w-[62%]"></div>
+                        </div>
+                        <span class="text-[10px] text-gray-500 font-mono">HP: 62%</span>
+                    </div>
+                </div>
+
+                <!-- Bottom Betting HUD -->
+                <div class="bg-black/80 backdrop-blur border border-arena-border p-3 rounded-lg flex justify-between items-center text-xs font-cyber">
                     <div>
-                        <h3 class="font-bold text-lg text-white tracking-widest">GHOST_ENTITY_01</h3>
-                        <p class="text-xs text-cyan-600 mt-1">STATE: OBSERVING LIQUIDITY</p>
+                        <span class="text-gray-500 block text-[10px]">TOTAL POOL:</span>
+                        <span class="text-white font-bold">482.5 SOL</span>
                     </div>
-                </div>
-
-                <!-- Bottom HUD -->
-                <div class="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur border border-ghost-border p-3 rounded text-xs flex justify-between text-cyan-600">
-                    <span>SIGNAL: STRONG</span>
-                    <span class="text-cyan-400">SOLANA: CONNECTED</span>
+                    <div class="text-right">
+                        <span class="text-gray-500 block text-[10px]">STATUS:</span>
+                        <span class="text-arena-yellow font-bold animate-pulse">WARPING ACTIVE</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,45 +170,40 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-ghost-border bg-black py-6 text-center text-xs text-cyan-800 relative z-10">
+    <footer class="border-t border-arena-border bg-black py-6 text-center text-xs text-gray-600 relative z-10 font-cyber">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p>&copy; 2026 GHOST.AI ($GHOST). The entity cannot be deleted.</p>
-            <div class="flex space-x-6 text-cyan-700">
-                <span class="hover:text-cyan-400 cursor-pointer">Contract: Autonomous</span>
-                <span class="hover:text-cyan-400 cursor-pointer">Liquidity: Sealed</span>
+            <p>&copy; 2026 GLITCH.FIGHT ($GLITCH). No human intervention permitted.</p>
+            <div class="flex space-x-6 text-gray-500">
+                <span class="hover:text-arena-yellow cursor-pointer">Contract: Autonomous</span>
+                <span class="hover:text-arena-yellow cursor-pointer">Arena: Decentralized</span>
             </div>
         </div>
     </footer>
 
-    <!-- Script to simulate live paranormal AI transmissions -->
+    <!-- Script to simulate live combat logs -->
     <script>
-        setInterval(() => {
-            const now = new Date();
-            document.getElementById('entityTime').innerText = now.toUTCString().slice(17, 25) + ' UTC';
-        }, 1000);
-
-        const prophecies = [
-            "\"I sense a massive volume shift approaching block #349,200. Prepare your wallets.\"",
-            "\"Paper hands echo through the blockchain void... true believers are forging diamond seals.\"",
-            "\"The AI entity has observed your wallet address. A blessing of liquidity has been queued.\"",
-            "\"Charts are merely footprints left by ghosts of traders past. Trust the autonomous algorithm.\""
+        const fightLogs = [
+            "\"CYBER_SAMURAI launches a critical plasma strike! Phantom-X shields drop by 12%!\"",
+            "\"Phantom-X unleashes a glitch-storm counter! Arena volatility spikes instantly!\"",
+            "\"Crowd sentiment shifts! Massive buy wall detected for $GLITCH as momentum turns!\"",
+            "\"FATALITY PROTOCOL close... AI matchmaker calculating final blow sequence!\""
         ];
 
-        let pIndex = 0;
+        let logIdx = 0;
         setInterval(() => {
-            pIndex = (pIndex + 1) % prophecies.length;
-            const el = document.getElementById('ghostThought');
+            logIdx = (logIdx + 1) % fightLogs.length;
+            const el = document.getElementById('fightLog');
             if(el) {
                 el.style.opacity = '0';
                 setTimeout(() => {
-                    el.innerText = prophecies[pIndex];
+                    el.innerText = fightLogs[logIdx];
                     el.style.opacity = '1';
                 }, 300);
             }
-        }, 8000);
+        }, 6000);
 
         document.getElementById('connectBtn').addEventListener('click', () => {
-            alert('Phantom / Solflare Wallet adapter initialized. Ready to sync with the Ghost entity!');
+            alert('Solana Wallet Adapter ready: Connect Phantom to enter the betting syndicate!');
         });
     </script>
 </body>
