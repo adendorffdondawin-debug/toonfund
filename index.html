@@ -1,210 +1,151 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLITCH.FIGHT | Autonomous AI Underground Arena</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        arena: { bg: '#030305', card: '#0a0a0f', red: '#ff003c', yellow: '#ccff00', border: '#1a1a24' }
-                    },
-                    fontFamily: {
-                        mono: ['"Share Tech Mono"', 'monospace'],
-                        cyber: ['"Orbitron"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
-        .glitch-hover:hover {
-            animation: glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
-        }
-        .arena-glow {
-            box-shadow: 0 0 50px rgba(255, 0, 60, 0.15);
-        }
-        .scanlines {
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.5) 50%);
-            background-size: 100% 4px;
-        }
-    </style>
-</head>
-<body class="bg-arena-bg text-gray-200 font-mono min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-arena-red selection:text-white">
+import React, { useState, useEffect } from 'react';
 
-    <!-- Scanline Overlay -->
-    <div class="absolute inset-0 scanlines pointer-events-none z-50 fixed"></div>
+export default function GlitchFightArena() {
+  const [matchTime, setMatchTime] = useState("01:42");
+  const [hpSamurai, setHpSamurai] = useState(85);
+  const [hpPhantom, setHpPhantom] = useState(62);
+  const [bettingPool, setBettingPool] = useState(482.5);
+  const [commentaryIndex, setCommentaryIndex] = useState(0);
 
-    <!-- Top Status Bar -->
-    <div class="bg-black border-b border-arena-border text-xs py-2 px-4 flex justify-between items-center z-40 font-cyber">
-        <div class="flex items-center space-x-2 text-arena-red">
-            <span class="w-2 h-2 rounded-full bg-arena-red animate-ping"></span>
-            <span>MATCH #809: LIVE IN THE UNDERGROUND</span>
+  const commentaries = [
+    "\"UNIT-04 (CYBER_SAMURAI) executes a brutal neural counter-attack! Phantom-X drops 14% health!\"",
+    "\"Phantom-X unleashes a glitch-storm sweep! Cyber Samurai's defense protocols flicker!\"",
+    "\"Massive liquidity buy-wall detected on Solana network! Arena volatility surging!\"",
+    "\"FATALITY SEQUENCE approaching... AI matchmaker calculating final blow!\""
+  ];
+
+  // Simulate real-time live combat updates
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCommentaryIndex((prev) => (prev + 1) % commentaries.length);
+      setHpSamurai((prev) => Math.max(40, prev - Math.floor(Math.random() * 5)));
+      setHpPhantom((prev) => Math.max(30, prev - Math.floor(Math.random() * 6)));
+      setBettingPool((prev) => +(prev + (Math.random() * 1.5)).toFixed(1));
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleConnectWallet = () => {
+    alert("Solana Wallet Adapter initialized. Connect Phantom or Solflare to enter the betting syndicate!");
+  };
+
+  const handleLaunchToken = () => {
+    window.open("https://pump.fun", "_blank");
+  };
+
+  return (
+    <div className="bg-[#0b0c10] text-gray-200 font-mono min-h-screen flex flex-col justify-between p-4 sm:p-8 relative overflow-hidden select-none">
+      
+      {/* Background Matrix/Grid Overlay */}
+      <div className="absolute inset-0 bg-[radial-gradient(#1f2833_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none"></div>
+
+      {/* Top Header Bar */}
+      <header className="max-w-7xl mx-auto w-full flex justify-between items-center mb-6 relative z-10">
+        <div className="flex items-center space-x-3">
+          <div className="text-xl font-black text-red-500 tracking-wider">
+            GLITCH.FIGHT <span className="text-xs text-yellow-400 font-normal">($GLITCH)</span>
+          </div>
         </div>
-        <div class="text-gray-500 hidden sm:block">
-            SOLANA RPC: <span class="text-arena-yellow">OPTIMIZED (0ms LATENCY)</span>
-        </div>
-    </div>
+        <button 
+          onClick={handleConnectWallet}
+          className="bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-black px-6 py-2 rounded-xl text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(234,179,8,0.4)] hover:scale-105 transition-transform border border-yellow-200 cursor-pointer"
+        >
+          CONNECT WALLET
+        </button>
+      </header>
 
-    <!-- Header -->
-    <header class="border-b border-arena-border bg-arena-bg/90 backdrop-blur sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-11 h-11 rounded-lg bg-arena-red/10 border border-arena-red/50 flex items-center justify-center text-xl text-arena-red font-black shadow-lg shadow-arena-red/20 font-cyber">
-                    ⚡
-                </div>
-                <div>
-                    <h1 class="font-black tracking-widest text-lg text-white font-cyber">GLITCH.FIGHT</h1>
-                    <p class="text-xs text-arena-red font-cyber">AI DEATHMATCH SYNDICATE</p>
-                </div>
-            </div>
-            <div>
-                <button id="connectBtn" class="bg-arena-yellow hover:bg-yellow-400 text-black font-black px-6 py-2.5 rounded text-xs tracking-wider transition transform hover:scale-105 shadow-lg shadow-arena-yellow/20 font-cyber">
-                    CONNECT WALLET
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 py-12 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+      {/* Main Arena Display Container */}
+      <main className="max-w-6xl mx-auto w-full flex-grow flex flex-col justify-center relative z-10">
         
-        <!-- Left Column: Manifesto & Live Arena Feed -->
-        <div class="lg:col-span-7 space-y-6">
-            <div class="inline-block bg-arena-red/10 border border-arena-red/30 px-3 py-1 rounded text-xs text-arena-red font-cyber">
-                ⚠️ FULLY AUTONOMOUS AI BATTLE ARENA ON SOLANA
+        {/* Arena Window Frame */}
+        <div className="bg-gradient-to-b from-[#151720] to-[#08090c] border-2 border-[#2a2e3d] rounded-2xl p-4 sm:p-6 shadow-[0_0_50px_rgba(0,0,0,0.8)] relative">
+          
+          {/* Top Arena HUD Header */}
+          <div className="flex flex-col sm:flex-row justify-between items-center border-b border-[#2a2e3d] pb-4 mb-6 gap-2">
+            <div className="flex items-center space-x-3">
+              <span className="w-3 h-3 rounded-full bg-red-600 animate-ping"></span>
+              <h2 className="text-red-500 font-black tracking-widest text-sm sm:text-base">MATCH #809: LIVE</h2>
+            </div>
+            
+            <div className="bg-black/60 px-4 py-1.5 rounded-lg border border-[#2a2e3d] font-bold text-xs tracking-widest text-yellow-400">
+              BETTING POOL: <span className="text-white">{bettingPool} SOL</span>
+            </div>
+          </div>
+
+          {/* Core Matchup Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            
+            {/* Red Corner: Cyber Samurai */}
+            <div className="lg:col-span-4 bg-black/50 border border-red-900/50 rounded-xl p-4 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-red-600"></div>
+              <div className="flex justify-between items-center text-xs mb-2 font-bold">
+                <span className="text-red-500">HP: {hpSamurai}%</span>
+                <span className="text-gray-500 text-[10px]">RED CORNER</span>
+              </div>
+              <h3 className="text-white font-black text-lg tracking-wider">CYBER_SAMURAI</h3>
+              <div className="space-y-1 text-xs text-gray-400 my-3">
+                <div className="flex justify-between"><span>AGILITY</span><div className="w-20 bg-gray-800 h-1.5 my-auto rounded"><div className="bg-red-500 w-[80%] h-full rounded"></div></div></div>
+                <div className="flex justify-between"><span>POWER</span><div className="w-20 bg-gray-800 h-1.5 my-auto rounded"><div className="bg-red-500 w-[90%] h-full rounded"></div></div></div>
+                <div className="flex justify-between"><span>RAWITH</span><div className="w-20 bg-gray-800 h-1.5 my-auto rounded"><div className="bg-red-500 w-[75%] h-full rounded"></div></div></div>
+              </div>
+              <div className="bg-red-950/30 border border-red-900/50 rounded p-2 text-center text-xs font-bold text-red-400">
+                4B2.5 SOL STAKED
+              </div>
             </div>
 
-            <h2 class="text-4xl sm:text-6xl font-black uppercase text-white tracking-wide font-cyber leading-none">
-                THE ULTIMATE <span class="text-transparent bg-clip-text bg-gradient-to-r from-arena-red to-arena-yellow">AI DEATHMATCH</span> LEAGUE.
-            </h2>
-
-            <p class="text-gray-400 text-base sm:text-lg leading-relaxed">
-                No humans allowed in the ring. Autonomous AI gladiators battle hourly for crypto liquidity. Watch the ticker, stake your `$GLITCH` tokens, and back your champion in the most aggressive on-chain spectacle ever built.
-            </p>
-
-            <!-- Live Match Commentary Console -->
-            <div class="bg-arena-card border border-arena-border rounded-xl p-5 arena-glow space-y-3 relative overflow-hidden">
-                <div class="flex justify-between items-center text-xs text-gray-500 border-b border-arena-border pb-2 font-cyber">
-                    <span>ARENA_COMMENTARY_FEED // LIVE</span>
-                    <span id="matchTimer" class="text-arena-yellow">ROUND 3 [01:42]</span>
-                </div>
-                <div class="space-y-2">
-                    <p class="text-gray-500 text-xs">> AI Matchmaker sync active...</p>
-                    <p id="fightLog" class="text-arena-yellow text-sm sm:text-base leading-relaxed font-bold">
-                        "UNIT-04 (CYBER_SAMURAI) executes a brutal neural counter-attack! Phantom-X drops 14% health!"
-                    </p>
-                </div>
+            {/* Center Visual Combat Stage */}
+            <div className="lg:col-span-4 flex flex-col items-center justify-center relative my-4 lg:my-0">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-600/10 via-transparent to-yellow-500/10 rounded-xl blur-xl"></div>
+              <div className="relative z-10 font-black text-3xl sm:text-4xl italic text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 tracking-tighter mb-4">
+                VS
+              </div>
+              <div className="w-full bg-black/80 border border-[#2a2e3d] rounded-xl p-3 text-center shadow-lg relative z-10">
+                <div className="text-[10px] text-gray-500 tracking-widest uppercase mb-1">GLITCH_COMMENTARY</div>
+                <p className="text-xs sm:text-sm text-yellow-300 font-bold leading-relaxed min-h-[50px] flex items-center justify-center transition-opacity duration-300">
+                  {commentaries[commentaryIndex]}
+                </p>
+              </div>
             </div>
 
-            <!-- CTA Buttons -->
-            <div class="flex flex-wrap gap-4 pt-2">
-                <a href="https://pump.fun" target="_blank" class="bg-arena-red hover:bg-red-600 text-white font-black px-8 py-4 rounded-lg transition text-center shadow-xl shadow-arena-red/30 tracking-wider text-sm font-cyber glitch-hover">
-                    LAUNCH $GLITCH (PUMP.FUN)
-                </a>
-                <a href="https://x.com" target="_blank" class="bg-arena-card hover:bg-arena-border border border-arena-border text-gray-300 font-bold px-7 py-4 rounded-lg transition text-center text-sm font-cyber">
-                    VIEW ARENA FEED ON X
-                </a>
+            {/* Yellow Corner: Phantom X */}
+            <div className="lg:col-span-4 bg-black/50 border border-yellow-900/50 rounded-xl p-4 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-yellow-500"></div>
+              <div className="flex justify-between items-center text-xs mb-2 font-bold">
+                <span className="text-yellow-400">HP: {hpPhantom}%</span>
+                <span className="text-gray-500 text-[10px]">YELLOW CORNER</span>
+              </div>
+              <h3 className="text-white font-black text-lg tracking-wider">PHANTOM_X</h3>
+              <div className="space-y-1 text-xs text-gray-400 my-3">
+                <div className="flex justify-between"><span>AGILITY</span><div className="w-20 bg-gray-800 h-1.5 my-auto rounded"><div className="bg-yellow-500 w-[95%] h-full rounded"></div></div></div>
+                <div className="flex justify-between"><span>POWER</span><div className="w-20 bg-gray-800 h-1.5 my-auto rounded"><div className="bg-yellow-500 w-[70%] h-full rounded"></div></div></div>
+                <div className="flex justify-between"><span>POWBR</span><div className="w-20 bg-gray-800 h-1.5 my-auto rounded"><div className="bg-yellow-500 w-[85%] h-full rounded"></div></div></div>
+              </div>
+              <div className="bg-yellow-950/30 border border-yellow-900/50 rounded p-2 text-center text-xs font-bold text-yellow-400">
+                3.11.8 SOL STAKED
+              </div>
             </div>
+
+          </div>
+
         </div>
 
-        <!-- Right Column: Live Combat Arena Stage -->
-        <div class="lg:col-span-5 flex justify-center">
-            <div class="relative w-full max-w-md aspect-square bg-arena-card/80 rounded-2xl border border-arena-border p-6 flex flex-col justify-between arena-glow overflow-hidden">
-                
-                <!-- Arena Header HUD -->
-                <div class="flex justify-between items-center text-xs font-cyber text-gray-400">
-                    <span class="text-arena-red font-bold">🔴 RED CORNER</span>
-                    <span class="bg-black px-3 py-1 rounded border border-arena-border text-white">VS</span>
-                    <span class="text-arena-yellow font-bold">🟡 YELLOW CORNER</span>
-                </div>
-
-                <!-- Fighters Visual Display -->
-                <div class="grid grid-cols-2 gap-4 text-center my-auto">
-                    <div class="bg-black/60 border border-arena-red/40 p-4 rounded-xl flex flex-col items-center justify-center space-y-2">
-                        <div class="text-4xl">🤖</div>
-                        <h4 class="text-xs font-cyber font-bold text-white">CYBER_SAMURAI</h4>
-                        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
-                            <div class="bg-arena-red h-full w-[85%]"></div>
-                        </div>
-                        <span class="text-[10px] text-gray-500 font-mono">HP: 85%</span>
-                    </div>
-
-                    <div class="bg-black/60 border border-arena-yellow/40 p-4 rounded-xl flex flex-col items-center justify-center space-y-2">
-                        <div class="text-4xl">💀</div>
-                        <h4 class="text-xs font-cyber font-bold text-white">PHANTOM_X</h4>
-                        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
-                            <div class="bg-arena-yellow h-full w-[62%]"></div>
-                        </div>
-                        <span class="text-[10px] text-gray-500 font-mono">HP: 62%</span>
-                    </div>
-                </div>
-
-                <!-- Bottom Betting HUD -->
-                <div class="bg-black/80 backdrop-blur border border-arena-border p-3 rounded-lg flex justify-between items-center text-xs font-cyber">
-                    <div>
-                        <span class="text-gray-500 block text-[10px]">TOTAL POOL:</span>
-                        <span class="text-white font-bold">482.5 SOL</span>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-gray-500 block text-[10px]">STATUS:</span>
-                        <span class="text-arena-yellow font-bold animate-pulse">WARPING ACTIVE</span>
-                    </div>
-                </div>
-            </div>
+        {/* Action Call to Launch Button */}
+        <div className="mt-8 flex justify-center">
+          <button 
+            onClick={handleLaunchToken}
+            className="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white font-black px-10 py-4 rounded-xl text-sm sm:text-base tracking-widest uppercase shadow-[0_0_30px_rgba(220,38,38,0.5)] transition-all transform hover:scale-105 border border-red-400 cursor-pointer"
+          >
+            🚀 LAUNCH $GLITCH (PUMP.FUN)
+          </button>
         </div>
 
-    </main>
+      </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-arena-border bg-black py-6 text-center text-xs text-gray-600 relative z-10 font-cyber">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p>&copy; 2026 GLITCH.FIGHT ($GLITCH). No human intervention permitted.</p>
-            <div class="flex space-x-6 text-gray-500">
-                <span class="hover:text-arena-yellow cursor-pointer">Contract: Autonomous</span>
-                <span class="hover:text-arena-yellow cursor-pointer">Arena: Decentralized</span>
-            </div>
-        </div>
-    </footer>
+      {/* Footer */}
+      <footer className="max-w-7xl mx-auto w-full text-center text-xs text-gray-600 mt-8 relative z-10">
+        <p>&copy; 2026 GLITCH.FIGHT ($GLITCH). Fully Autonomous AI Syndicate. Zero Human Intervention.</p>
+      </footer>
 
-    <!-- Script to simulate live combat logs -->
-    <script>
-        const fightLogs = [
-            "\"CYBER_SAMURAI launches a critical plasma strike! Phantom-X shields drop by 12%!\"",
-            "\"Phantom-X unleashes a glitch-storm counter! Arena volatility spikes instantly!\"",
-            "\"Crowd sentiment shifts! Massive buy wall detected for $GLITCH as momentum turns!\"",
-            "\"FATALITY PROTOCOL close... AI matchmaker calculating final blow sequence!\""
-        ];
-
-        let logIdx = 0;
-        setInterval(() => {
-            logIdx = (logIdx + 1) % fightLogs.length;
-            const el = document.getElementById('fightLog');
-            if(el) {
-                el.style.opacity = '0';
-                setTimeout(() => {
-                    el.innerText = fightLogs[logIdx];
-                    el.style.opacity = '1';
-                }, 300);
-            }
-        }, 6000);
-
-        document.getElementById('connectBtn').addEventListener('click', () => {
-            alert('Solana Wallet Adapter ready: Connect Phantom to enter the betting syndicate!');
-        });
-    </script>
-</body>
-</html>
+    </div>
+  );
+}
